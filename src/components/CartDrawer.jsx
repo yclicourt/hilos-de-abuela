@@ -29,17 +29,17 @@ export default function CartDrawer({ open, cart, onClose, onChangeQty, onRemove 
       <aside
         aria-label="Carrito de compras"
         aria-hidden={!open}
-        className={`drawer-in fixed top-0 right-0 z-95 flex h-dvh w-[min(430px,100vw)] flex-col bg-cream shadow-[0_10px_30px_rgba(84,54,32,0.13)] ${
+        className={`drawer-in fixed top-0 right-0 z-95 flex h-dvh w-[min(430px,100vw)] flex-col bg-cream shadow-[0_10px_30px_rgba(84,54,32,0.13)] dark:bg-night ${
           open ? 'flex' : 'hidden'
         }`}
       >
-        <div className="flex items-center justify-between gap-2.5 border-b-2 border-dashed border-stitch px-5 py-[18px]">
+        <div className="flex items-center justify-between gap-2.5 border-b-2 border-dashed border-stitch px-5 py-[18px] dark:border-night-stitch">
           <h2 className="font-serif text-[1.7rem] font-bold">Tu carrito</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Cerrar el carrito"
-            className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-line bg-surface text-ink hover:bg-surface-2"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-line bg-surface text-ink hover:bg-surface-2 dark:border-night-line dark:bg-night-surface dark:text-night-cream dark:hover:bg-night-surface-2"
           >
             <CloseIcon />
           </button>
@@ -47,7 +47,7 @@ export default function CartDrawer({ open, cart, onClose, onChangeQty, onRemove 
 
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {ids.length === 0 && (
-            <div className="px-2.5 py-11 text-center font-bold text-muted">
+            <div className="px-2.5 py-11 text-center font-bold text-muted dark:text-night-muted">
               Tu carrito está vacío.
               <br />
               Date una vuelta por el catálogo y enamórate de algo.
@@ -56,18 +56,18 @@ export default function CartDrawer({ open, cart, onClose, onChangeQty, onRemove 
           {ids.map((id) => {
             const p = productById(id)
             return (
-              <div key={id} className="flex gap-3 border-b-2 border-dashed border-line py-[13px]">
+              <div key={id} className="flex gap-3 border-b-2 border-dashed border-line py-[13px] dark:border-night-line">
                 <img src={p.img} alt="" className="h-16 w-16 shrink-0 rounded-[10px] object-cover" />
                 <div className="min-w-0 flex-1">
                   <div className="text-[0.95rem] leading-[1.3] font-extrabold">{p.name}</div>
-                  <div className="text-[0.9rem] font-extrabold text-terra-dark">{fmt(p.price)} c/u</div>
+                  <div className="text-[0.9rem] font-extrabold text-terra-dark dark:text-terra-light">{fmt(p.price)} c/u</div>
                   <div className="mt-1.5 flex items-center justify-between">
-                    <span className="inline-flex items-center overflow-hidden rounded-full border-2 border-line bg-surface">
+                    <span className="inline-flex items-center overflow-hidden rounded-full border-2 border-line bg-surface dark:border-night-line dark:bg-night-surface">
                       <button
                         type="button"
                         aria-label="Quitar uno"
                         onClick={() => onChangeQty(id, cart[id] - 1)}
-                        className="grid h-[34px] w-8 place-items-center text-[1.15rem] font-extrabold text-terra-dark hover:bg-surface-2"
+                        className="grid h-[34px] w-8 place-items-center text-[1.15rem] font-extrabold text-terra-dark hover:bg-surface-2 dark:text-terra-light dark:hover:bg-night-surface-2"
                       >
                         −
                       </button>
@@ -76,7 +76,7 @@ export default function CartDrawer({ open, cart, onClose, onChangeQty, onRemove 
                         type="button"
                         aria-label="Añadir uno"
                         onClick={() => onChangeQty(id, Math.min(20, cart[id] + 1))}
-                        className="grid h-[34px] w-8 place-items-center text-[1.15rem] font-extrabold text-terra-dark hover:bg-surface-2"
+                        className="grid h-[34px] w-8 place-items-center text-[1.15rem] font-extrabold text-terra-dark hover:bg-surface-2 dark:text-terra-light dark:hover:bg-night-surface-2"
                       >
                         +
                       </button>
@@ -84,7 +84,7 @@ export default function CartDrawer({ open, cart, onClose, onChangeQty, onRemove 
                     <button
                       type="button"
                       onClick={() => onRemove(id)}
-                      className="min-h-9 bg-transparent px-2 py-2 text-[0.82rem] font-bold text-muted hover:text-terra"
+                      className="min-h-9 bg-transparent px-2 py-2 text-[0.82rem] font-bold text-muted hover:text-terra dark:text-night-muted dark:hover:text-terra-light"
                     >
                       Quitar
                     </button>
@@ -96,9 +96,9 @@ export default function CartDrawer({ open, cart, onClose, onChangeQty, onRemove 
         </div>
 
         {ids.length > 0 && (
-          <div className="border-t-2 border-dashed border-stitch bg-surface px-5 pt-4 pb-5">
+          <div className="border-t-2 border-dashed border-stitch bg-surface px-5 pt-4 pb-5 dark:border-night-stitch dark:bg-night-surface">
             <div className="mb-2.5">
-              <label htmlFor="buyerName" className="mb-1 block text-[0.82rem] font-extrabold text-ink-soft">
+              <label htmlFor="buyerName" className="mb-1 block text-[0.82rem] font-extrabold text-ink-soft dark:text-night-soft">
                 Tu nombre (opcional)
               </label>
               <input
@@ -108,14 +108,14 @@ export default function CartDrawer({ open, cart, onClose, onChangeQty, onRemove 
                 onChange={(e) => setBuyerName(e.target.value)}
                 placeholder="Ej.: María"
                 autoComplete="name"
-                className="min-h-[46px] w-full rounded-xl border-2 border-line bg-cream px-3 py-2.5 font-[inherit] text-ink focus:border-terra focus:outline-none"
+                className="min-h-[46px] w-full rounded-xl border-2 border-line bg-cream px-3 py-2.5 font-[inherit] text-ink focus:border-terra focus:outline-none dark:border-night-line dark:bg-night-2 dark:text-night-cream"
               />
             </div>
             <div className="mb-1.5 flex items-baseline justify-between">
               <span>Total del pedido</span>
-              <b className="font-serif text-[1.8rem] text-terra-dark">{fmt(total)}</b>
+              <b className="font-serif text-[1.8rem] text-terra-dark dark:text-terra-light">{fmt(total)}</b>
             </div>
-            <p className="mt-0 mb-3 text-[0.83rem] text-muted">
+            <p className="mt-0 mb-3 text-[0.83rem] text-muted dark:text-night-muted">
               El envío se coordina por WhatsApp. Pagas al recibir, en efectivo o por Transfermóvil.
             </p>
             <button

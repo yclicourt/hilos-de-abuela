@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Modo oscuro por clase: se activa con .dark en <html> (ver App.jsx). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Paleta de la maqueta: crema, terracota, salvia, rosa, dorado. */
 @theme {
   --color-cream: #faf4e8;
@@ -22,6 +25,23 @@
   --color-line: #e3d3ba;
   --color-stitch: #c8ab84;
 
+  /* Modo oscuro: cálido, a juego con la paleta (fondo marrón, texto crema). */
+  --color-night: #171310;
+  --color-night-2: #1e1813;
+  --color-night-surface: #221b16;
+  --color-night-surface-2: #2b221a;
+  --color-night-cream: #f5ead6;
+  --color-night-soft: #cdb99f;
+  --color-night-muted: #a08a70;
+  --color-night-line: #3a2f24;
+  --color-night-stitch: #6b563e;
+  --color-terra-light: #d2693d;
+  --color-night-terra-soft: #3a241a;
+  --color-night-rose: #d69aa4;
+  --color-night-rose-soft: #3a2426;
+  --color-night-sage: #a8b98a;
+  --color-night-sage-soft: #262b1e;
+
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Nunito Sans", system-ui, sans-serif;
 }
@@ -37,6 +57,16 @@ body {
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Modo oscuro: el fondo y el texto base cambian con la clase .dark. */
+.dark body {
+  background: var(--color-night);
+  color: var(--color-night-cream);
+}
+
+.dark body::before {
+  opacity: 0.22;
 }
 
 /* Sutil textura de lino, como en la maqueta. */

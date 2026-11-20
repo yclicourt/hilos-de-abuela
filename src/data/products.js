@@ -5,10 +5,10 @@
 // archivo: el resto de la tienda no cambia.
 // ============================================================================
 
-// Número de WhatsApp que recibe los pedidos (sin +, con código de país).
-// PLACEHOLDER: por ahora es el de Yoan (+53 51877879). Cambiar por el de la
-// abuela (o el que ella use para los pedidos) antes de publicar.
-export const WA_NUMBER = '5351877879'
+// Número de WhatsApp que recibe los pedidos (sin +, con código de país 53).
+// Número que dio Yoan (56915380). Confirmar con la abuela antes de
+// publicar como definitivo.
+export const WA_NUMBER = '5356915380'
 
 export const STORE = {
   name: 'Hilos de Abuela',
@@ -44,6 +44,18 @@ export const CATEGORIES = [
     name: 'Abanicos',
     img: '/assets/abanico-verde.jpg',
     alt: 'Abanico de tela verde con varillas de bambú',
+  },
+  {
+    id: 'ninos',
+    name: 'Ropa de niño',
+    img: '/assets/vestido-nina.jpg',
+    alt: 'Vestido de niña de algodón blanco con flores bordadas',
+  },
+  {
+    id: 'modulos',
+    name: 'Módulos',
+    img: '/assets/modulos.jpg',
+    alt: 'Pila de textiles doblados para el hogar en crema, verde y terracota',
   },
 ]
 
@@ -169,6 +181,30 @@ export const PRODUCTS = [
     img: '/assets/abanico-verde.jpg',
     alt: 'Abanico abierto de tela verde con varillas de bambú',
     keys: ['verde', 'bambu', 'abanico verde'],
+  },
+  {
+    id: 'p11',
+    cat: 'ninos',
+    name: 'Vestido de niña «Florecitas»',
+    desc: 'Vestido blanco de algodón con florecitas bordadas a mano, botones de madera y vuelo amplio. Para los días de fiesta y para todos los días.',
+    meta: 'Algodón · Talla 4–6 años',
+    price: 1200,
+    stock: 'ok',
+    img: '/assets/vestido-nina.jpg',
+    alt: 'Vestido de niña blanco con flores bordadas colgado en una percha de madera',
+    keys: ['vestido', 'nina', 'florecitas', 'vestido de nina'],
+  },
+  {
+    id: 'p12',
+    cat: 'ninos',
+    name: 'Conjunto de bebé «Nube»',
+    desc: 'Body y pantalón de algodón suave color crema, con una florecita bordada. Cómodo, sin costuras que molesten y fácil de lavar.',
+    meta: 'Algodón suave · 0–12 meses · 2 piezas',
+    price: 950,
+    stock: 'ok',
+    img: '/assets/conjunto-bebe.jpg',
+    alt: 'Conjunto de bebé color crema doblado sobre una tela de lino',
+    keys: ['bebe', 'conjunto', 'nube', 'conjunto de bebe'],
   },
 ]
 

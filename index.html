@@ -8,6 +8,17 @@
       content="Hilos de Abuela — costura hecha a mano: paños de cocina y de baño, muñecos de tela y abanicos. Pide por WhatsApp y paga al recibir."
     />
     <title>Hilos de Abuela — Costura hecha a mano</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Tema inicial antes de que cargue React (evita el parpadeo claro):
+      // lo guardado en localStorage manda; si no hay nada, el sistema.
+      try {
+        var t = localStorage.getItem('hilos-theme')
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        }
+      } catch (e) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -18,6 +18,22 @@ export default function App() {
   const [toast, setToast] = useState('')
   const toastTimer = useRef(null)
 
+  // Tema oscuro: el script de index.html ya puso la clase .dark antes de que
+  // cargue React (lo guardado en localStorage, o el sistema si no hay nada).
+  const [dark, setDark] = useState(
+    () =>
+      typeof document !== 'undefined' &&
+      document.documentElement.classList.contains('dark'),
+  )
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark)
+    try {
+      window.localStorage.setItem('hilos-theme', dark ? 'dark' : 'light')
+    } catch {
+      // Sin localStorage, el tema solo vive en esta sesión.
+    }
+  }, [dark])
+
   const showToast = useCallback((msg) => {
     setToast(msg)
     window.clearTimeout(toastTimer.current)
@@ -65,7 +81,12 @@ export default function App() {
 
   return (
     <div id="inicio" className="relative z-[1]">
-      <Header cartCount={cartCount} onOpenCart={() => setCartOpen(true)} />
+      <Header
+        cartCount={cartCount}
+        onOpenCart={() => setCartOpen(true)}
+        dark={dark}
+        onToggleTheme={() => setDark((d) => !d)}
+      />
 
       <main>
         <Hero />

@@ -1,9 +1,14 @@
 // ============================================================================
-// HILITO — ASISTENTE SIMULADO (placeholder).
-// Hoy responde con reglas fijas y SOLO con los datos de products.js: precios,
-// materiales, medidas y disponibilidad salen del catálogo, nunca inventados.
-// En un paso posterior se conecta a Groq (gratis) con este mismo catálogo
-// como única fuente; la interfaz de este módulo (answer()) no cambia.
+// HILITO — ASISTENTE DE LA TIENDA.
+// Responde SOLO con los datos de products.js: precios, materiales, medidas y
+// disponibilidad salen del catálogo, nunca inventados. Dos modos, misma forma
+// de respuesta { text } (y a veces product / waText / addToCart):
+//   - answer(): simulado, con reglas fijas sobre el catálogo (siempre
+//     disponible, también sin internet ni clave).
+//   - askAgent(): intenta primero el agente real (Groq) vía /api/hilito; si
+//     no hay clave o Groq falla, devuelve null y se usa answer().
+// El catálogo es la única fuente de verdad: cuando los datos de ejemplo se
+// sustituyan por los reales, Hilito responde con los reales sin tocar nada.
 // ============================================================================
 import { PRODUCTS, STOCK_TEXT, productById } from '../data/products'
 import { fmt, waLink } from './helpers'
@@ -39,7 +44,7 @@ export function answer(raw, cart) {
 
   if (/^(hola|buenas|buenos dias|hey|saludos)\b/.test(t) && t.length < 30) {
     return {
-      text: '¡Hola! Qué bueno verte por la tienda. ¿Buscas algo para la cocina, el baño, una muñeca o un abanico para el calor?',
+      text: '¡Hola! Qué bueno verte por la tienda. ¿Buscas algo para la cocina, el baño, una muñeca, ropa de niño o un abanico para el calor?',
     }
   }
   if (has(t, ['gracias'])) {
@@ -127,10 +132,23 @@ export function answer(raw, cart) {
       .join('\n')
     return { text: `En la cocina encontrarás:\n${list}\nPregúntame por cualquiera y te doy material y medidas.` }
   }
+  if (has(t, ['nino', 'nina', 'ninos', 'ninas', 'vestido', 'bebe', 'ropa de nino'])) {
+    const vestido = productById('p11')
+    const bebe = productById('p12')
+    return {
+      text: `Para los más pequeños hay dos piezas:\n• «Vestido de niña Florecitas», talla 4–6 años — ${fmt(vestido.price)}\n• «Conjunto de bebé Nube», 0–12 meses — ${fmt(bebe.price)}\nDime cuál te gusta y te cuento más o te la añado al carrito.`,
+    }
+  }
+  if (has(t, ['modulo', 'modulos'])) {
+    return {
+      text: 'En Módulos todavía no hay piezas en el catálogo: se cosen por encargo, a tu medida y con la tela que elijas. Cuéntanos tu idea por WhatsApp y la abuela te dice precio y tiempo.',
+      waText: 'Hola, quiero pedir un módulo por encargo en Hilos de Abuela. Mi idea es: ',
+    }
+  }
   if (has(t, ['que venden', 'que hay', 'catalogo', 'productos', 'venden'])) {
     const prices = PRODUCTS.map((x) => x.price)
     return {
-      text: `La abuela cose cuatro cosas: paños de cocina, juegos de baño, muñecas de trapo y abanicos de tela. Todo hecho a mano, con precios entre ${fmt(Math.min(...prices))} y ${fmt(Math.max(...prices))}. ¿Por dónde empezamos?`,
+      text: `La abuela cose de todo un poco: paños de cocina, juegos de baño, muñecas de trapo, abanicos de tela y ropa de niño; los módulos se cosen por encargo. Todo hecho a mano, con precios entre ${fmt(Math.min(...prices))} y ${fmt(Math.max(...prices))}. ¿Por dónde empezamos?`,
     }
   }
   if (has(t, ['carrito'])) {
@@ -154,9 +172,29 @@ export function waLinkFor(waText) {
   return waLink(waText)
 }
 
+// Agente real (Groq vía /api/hilito). Devuelve { text } o null cuando no hay
+// clave, el servidor no responde o Groq falla: en ese caso el componente usa
+// la respuesta simulada local, con la misma forma de respuesta.
+export async function askAgent(message, cart) {
+  try {
+    const r = await fetch('/api/hilito', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, cart }),
+    })
+    if (!r.ok) return null
+    const data = await r.json()
+    if (data?.fallback || typeof data?.text !== 'string' || !data.text.trim()) return null
+    return { text: data.text }
+  } catch {
+    return null
+  }
+}
+
 export const SUGGESTIONS = [
   '¿Cuánto cuesta la muñeca Rosita?',
   '¿Qué paños de baño hay?',
+  '¿Qué ropa de niño hay?',
   '¿Hacen encargos a medida?',
   '¿Cómo pago?',
 ]

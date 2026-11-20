@@ -10,14 +10,14 @@ export default function Hero() {
     <div className="mx-auto max-w-6xl px-5 pt-11 pb-2.5">
       <div className="grid items-center gap-11 lg:grid-cols-[1.05fr_0.95fr] lg:gap-11">
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-dashed border-rose bg-rose-soft px-3.5 py-1.5 text-[0.8rem] font-extrabold tracking-[0.08em] text-terra-dark uppercase">
+          <span className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-dashed border-rose bg-rose-soft px-3.5 py-1.5 text-[0.8rem] font-extrabold tracking-[0.08em] text-terra-dark uppercase dark:border-night-rose dark:bg-night-rose-soft dark:text-terra-light">
             Hecho a mano en casa
           </span>
           <h1 className="mt-[18px] mb-1.5 font-serif text-[clamp(2.6rem,6vw,4.3rem)] leading-[1.12] font-semibold">
-            Paños, muñecas y abanicos <em className="text-terra">cosidos con amor</em> de
+            Paños, muñecas y abanicos <em className="text-terra dark:text-terra-light">cosidos con amor</em> de
             abuela
           </h1>
-          <p className="my-3 max-w-[34rem] text-[1.13rem] text-ink-soft">
+          <p className="my-3 max-w-[34rem] text-[1.13rem] text-ink-soft dark:text-night-soft">
             Cada pieza sale de sus manos: paños de cocina y de baño bordados, muñecas de tela y
             abanicos para el calor. Sin intermediarios: pides por WhatsApp y pagas al recibir.
           </p>
@@ -38,21 +38,21 @@ export default function Hero() {
               Pedir por WhatsApp
             </a>
           </div>
-          <div className="mt-[26px] flex flex-wrap gap-x-[22px] gap-y-2 text-[0.93rem] font-bold text-ink-soft">
+          <div className="mt-[26px] flex flex-wrap gap-x-[22px] gap-y-2 text-[0.93rem] font-bold text-ink-soft dark:text-night-soft">
             <span className="inline-flex items-center gap-[7px]">
-              <span className="text-sage">
+              <span className="text-sage dark:text-night-sage">
                 <CheckIcon />
               </span>
               Pago contra entrega
             </span>
             <span className="inline-flex items-center gap-[7px]">
-              <span className="text-sage">
+              <span className="text-sage dark:text-night-sage">
                 <CheckIcon />
               </span>
               También por Transfermóvil
             </span>
             <span className="inline-flex items-center gap-[7px]">
-              <span className="text-sage">
+              <span className="text-sage dark:text-night-sage">
                 <CheckIcon />
               </span>
               Encargos a tu medida
@@ -76,13 +76,13 @@ export default function Hero() {
               transform="scale(.62) translate(37,26)"
             />
           </svg>
-          <div className="rotate-[1.2deg] rounded-[10px] border-2 border-dashed border-stitch bg-surface p-3 shadow-[0_10px_30px_rgba(84,54,32,0.13)]">
+          <div className="rotate-[1.2deg] rounded-[10px] border-2 border-dashed border-stitch bg-surface p-3 shadow-[0_10px_30px_rgba(84,54,32,0.13)] dark:border-night-stitch dark:bg-night-surface">
             <img
               src="/assets/hero-bordado.jpg"
               alt="Manos bordando flores en un bastidor de madera, con madejas de hilo al lado"
               className="h-[300px] w-full rounded-[5px] object-cover lg:h-[440px]"
             />
-            <figcaption className="px-1.5 pt-2.5 pb-1 text-center font-serif text-[1.15rem] text-ink-soft italic">
+            <figcaption className="px-1.5 pt-2.5 pb-1 text-center font-serif text-[1.15rem] text-ink-soft italic dark:text-night-soft">
               «Cada puntada lleva su tiempo, y se nota.»
             </figcaption>
           </div>
