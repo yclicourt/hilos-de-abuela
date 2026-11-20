@@ -1,3 +1,4 @@
+import { CATEGORIES } from '../data/products'
 import { waLink } from '../lib/helpers'
 
 // Historia de la abuela, cómo comprar, encargos a medida y preguntas.
@@ -34,7 +35,7 @@ export default function InfoSections() {
             <p className="mt-1.5 font-serif text-[1.5rem] text-terra-dark italic dark:text-terra-light">— La abuela costurera</p>
             <div className="mt-5 flex flex-wrap gap-[26px]">
               <div>
-                <b className="block font-serif text-[1.9rem] leading-none">4</b>
+                <b className="block font-serif text-[1.9rem] leading-none">{CATEGORIES.length}</b>
                 <span className="text-[0.82rem] font-bold tracking-[0.05em] text-muted uppercase dark:text-night-muted">
                   rincones de costura
                 </span>
